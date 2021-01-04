@@ -5,8 +5,10 @@ import {
   selectAllDays,
   selectFetchStatus,
   selectFetchError,
-  fetchDay,
+  fetchPastSevenDays,
 } from '../gauge/gaugeSlice';
+
+import { averageCaseOverTestPercentage } from '../../utils/calculate';
 
 export const Gauge = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,7 @@ export const Gauge = () => {
 
   useEffect(() => {
     if (fetchStatus === 'idle') {
-      dispatch(fetchDay());
+      dispatch(fetchPastSevenDays());
     }
   }, [dispatch, fetchStatus]);
 
@@ -26,7 +28,7 @@ export const Gauge = () => {
   } else if (fetchStatus === 'succeeded') {
     content = (
       <section className='gauge-content'>
-        {days.map(day => <p>{JSON.stringify(day)}</p>)}
+        <p>{averageCaseOverTestPercentage(days)}</p>
       </section>
     );
   } else if (fetchStatus === 'failed') {
