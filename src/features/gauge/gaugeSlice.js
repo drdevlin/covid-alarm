@@ -1,13 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { client } from '../../utils/client';
+import { startDate } from '../../utils/dates';
 
-export const fetchPastSevenDays = createAsyncThunk('gauge/fetchPastSevenDays', async () => {
-  const response = await client.get('https://api.covid19tracker.ca/reports/province/ON?after=2020-12-29');
+export const fetchReports = createAsyncThunk('gauge/fetchReports', async (daysAgo) => {
+  const from = startDate(daysAgo);
+  const response = await client.get(`https://api.covid19tracker.ca/reports/province/ON?after=${from}`);
   return response.data; // Returns just the reports array
 });
 
 const initialState = {
-  days: [],
+  reports: [],
   status: 'idle',
   error: null
 };
@@ -17,14 +19,14 @@ export const gaugeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchPastSevenDays.pending]: (state, action) => {
+    [fetchReports.pending]: (state, action) => {
       state.status = 'loading';
     },
-    [fetchPastSevenDays.fulfilled]: (state, action) => {
+    [fetchReports.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      state.days = action.payload;
+      state.reports = action.payload;
     },
-    [fetchPastSevenDays.rejected]: (state, action) => {
+    [fetchReports.rejected]: (state, action) => {
       state.status = 'failed'
       state.error = action.error.message
     }
@@ -33,6 +35,6 @@ export const gaugeSlice = createSlice({
 
 export default gaugeSlice.reducer;
 
-export const selectAllDays = state => state.gauge.days;
+export const selectAllReports = state => state.gauge.reports;
 export const selectFetchStatus = state => state.gauge.status;
 export const selectFetchError = state => state.gauge.error;

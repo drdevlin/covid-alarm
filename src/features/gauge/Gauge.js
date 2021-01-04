@@ -2,23 +2,23 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
-  selectAllDays,
+  selectAllReports,
   selectFetchStatus,
   selectFetchError,
-  fetchPastSevenDays,
+  fetchReports,
 } from '../gauge/gaugeSlice';
 
 import { averageCaseOverTestPercentage } from '../../utils/calculate';
 
 export const Gauge = () => {
   const dispatch = useDispatch();
-  const days = useSelector(selectAllDays);
+  const reports = useSelector(selectAllReports);
   const fetchStatus = useSelector(selectFetchStatus);
   const fetchError = useSelector(selectFetchError);
 
   useEffect(() => {
     if (fetchStatus === 'idle') {
-      dispatch(fetchPastSevenDays());
+      dispatch(fetchReports(13));
     }
   }, [dispatch, fetchStatus]);
 
@@ -28,7 +28,7 @@ export const Gauge = () => {
   } else if (fetchStatus === 'succeeded') {
     content = (
       <section className='gauge-content'>
-        <p>{averageCaseOverTestPercentage(days)}</p>
+        <p>Today's Average: {averageCaseOverTestPercentage(reports)}</p>
       </section>
     );
   } else if (fetchStatus === 'failed') {
