@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import gaugeReducer from '../features/gauge/gaugeSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    gauge: gaugeReducer,
   },
 });
