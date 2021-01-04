@@ -1,0 +1,7 @@
+.gauge-content, .gauge-image, .needle-image {
+  position: absolute;
+}
+.needle-image {
+  top: 240px;
+  left: 210px;
+}

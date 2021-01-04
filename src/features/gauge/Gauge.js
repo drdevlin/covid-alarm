@@ -8,11 +8,15 @@ import {
   fetchReports,
 } from '../gauge/gaugeSlice';
 
-import { averageCaseOverTestPercentage } from '../../utils/calculate';
+import { rollingAverage, needlePosition } from '../../utils/calculate';
+
+import './Gauge.css';
 
 export const Gauge = () => {
   const dispatch = useDispatch();
   const reports = useSelector(selectAllReports);
+  const rolling = rollingAverage(reports, 0);
+  const needle = needlePosition(rolling[0]).toString();
   const fetchStatus = useSelector(selectFetchStatus);
   const fetchError = useSelector(selectFetchError);
 
@@ -28,7 +32,8 @@ export const Gauge = () => {
   } else if (fetchStatus === 'succeeded') {
     content = (
       <section className='gauge-content'>
-        <p>Today's Average: {averageCaseOverTestPercentage(reports)}</p>
+        <img className='gauge-image' src='/gauge.svg' alt='' />
+        <img className='needle-image' src='/needle.svg' alt='' style={{ transform: `rotate(${needle}deg)` }} />
       </section>
     );
   } else if (fetchStatus === 'failed') {
