@@ -1,7 +1,15 @@
-.gauge-content, .gauge-image, .needle-image {
-  position: absolute;
+.gauge-content {
+  display: grid;
+  grid-template: 1fr / 1fr;
 }
+.gauge-image {
+  grid-area: 1 / 1 / span 1 / span 1;
+}
+
 .needle-image {
-  top: 240px;
+  z-index: 1;
+  grid-area: 1 / 1 / span 1 / span 1;
+  position: relative;
+  top: 245px;
   left: 210px;
 }

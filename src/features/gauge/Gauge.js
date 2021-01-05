@@ -31,18 +31,18 @@ export const Gauge = () => {
     content = <p>Loading...</p>;
   } else if (fetchStatus === 'succeeded') {
     content = (
-      <section className='gauge-content'>
+      <div className='gauge-content'>
         <img className='gauge-image' src='/gauge.svg' alt='' />
         <img className='needle-image' src='/needle.svg' alt='' style={{ transform: `rotate(${needle}deg)` }} />
-      </section>
+      </div>
     );
   } else if (fetchStatus === 'failed') {
     content = <div>{fetchError}</div>;
   }
 
   return (
-    <article className='Gauge'>
+    <div className='Gauge'>
       {content}
-    </article>
+    </div>
   );
 }
