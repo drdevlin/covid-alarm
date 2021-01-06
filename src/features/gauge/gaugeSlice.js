@@ -1,17 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-//import { client } from '../../utils/client';
 import { startDate } from '../../utils/dates';
 
 export const fetchReports = createAsyncThunk('gauge/fetchReports', async (daysAgo) => {
   const from = startDate(daysAgo);
-  //const response = await client.get(`https://api.covid19tracker.ca/reports/province/ON?after=${from}`);
-  //return response.data; // Returns just the reports array
   let data;
   try {
-    // const options = {
-    //   method: 'GET',
-    //   mode: 'cors',
-    // }
     const response = await window.fetch(`https://morning-caverns-71289.herokuapp.com?url=https://api.covid19tracker.ca/reports/province/ON&after=${from}`);
     data = await response.json();
     if (response.ok) {
