@@ -12,17 +12,13 @@ export const fetchReports = createAsyncThunk('gauge/fetchReports', async (daysAg
     //   method: 'GET',
     //   mode: 'cors',
     // }
-    const response = await window.fetch(`https://api.covid19tracker.ca/reports/province/ON?after=${from}`);
+    const response = await window.fetch(`https://morning-caverns-71289.herokuapp.com?url=https://api.covid19tracker.ca/reports/province/ON&after=${from}`);
     data = await response.json();
     if (response.ok) {
-      console.log('Response OK. Data:');
-      console.log(response);
       return data.data;
     }
     throw new Error(response.statusText);
   } catch (err) {
-    console.log('Response Error. Error:');
-    console.log(err);
     return Promise.reject(err.message ? err.message : data);
   }
 });
