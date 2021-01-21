@@ -5,7 +5,7 @@ export const fetchReports = createAsyncThunk('gauge/fetchReports', async (daysAg
   const from = startDate(daysAgo);
   let data;
   try {
-    const response = await window.fetch(`https://morning-caverns-71289.herokuapp.com?url=https://api.covid19tracker.ca/reports/province/ON&after=${from}`);
+    const response = await fetch(`https://morning-caverns-71289.herokuapp.com?url=https://api.covid19tracker.ca/reports/province/ON&after=${from}`);
     data = await response.json();
     if (response.ok) {
       return data.data;

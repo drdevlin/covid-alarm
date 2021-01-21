@@ -28,16 +28,16 @@ export const Gauge = () => {
 
   let content;
   if (fetchStatus === 'loading') {
-    content = <p>Loading...</p>;
+    content = <p role='status'>Loading...</p>;
   } else if (fetchStatus === 'succeeded') {
     content = (
       <div className='gauge-content'>
-        <img className='gauge-image' src='/gauge.svg' alt='' />
-        <img className='needle-image' src='/needle.svg' alt='' style={{ transform: `rotate(${needle}deg)` }} />
+        <img className='gauge-image' src='/gauge.svg' alt='a gauge' />
+        <img className='needle-image' src='/needle.svg' alt="the gauge's needle" style={{ transform: `rotate(${needle}deg)` }} />
       </div>
     );
   } else if (fetchStatus === 'failed') {
-    content = <div>{fetchError}</div>;
+    content = <p role='status'>{fetchError}</p>;
   }
 
   return (
