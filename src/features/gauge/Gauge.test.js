@@ -28,8 +28,9 @@ const store = createStore((state, action) => {
       return state;
   }
 }, initialState);
+const dispatch = jest.fn(() => {});
 rr.useDispatch = () => {
-  return () => {};
+  return dispatch;
 };
 rr.useSelector = (callback) => {
   return callback(store.getState());
@@ -38,6 +39,14 @@ rr.useSelector = (callback) => {
 
 describe('<Gauge />', () => {
   
+  it('fetches data from the external api', async () => {
+    store.dispatch({ type: 'UPDATE_STATUS', status: 'idle'});
+    await render(<Provider store={store}><Gauge /></Provider>);
+    const isCalled = dispatch.mock.calls.length;
+
+    expect(isCalled).toBeTruthy();
+  });
+
   it('displays status while loading', async () => {
     store.dispatch({ type: 'UPDATE_STATUS', status: 'loading'});
     await render(<Provider store={store}><Gauge /></Provider>);
