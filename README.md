@@ -4,7 +4,7 @@ A concept for COVID-19 alert system.
 ## General Info
 Displays a simple gauge of the severity of current COVID-19 infections. This is purely a concept and should not to taken to indicate any real threat level. However, the needle position is derived from real, live data from [COVID-19 Tracker Canada](https://api.covid19tracker.ca/docs/1.0/overview).
 
-Here's what it does? The needle position is a representation of the daily, 7-day average of percentage of cases over tests. First position is 0%. Buried position is 15%.
+Here's what it does. The needle position is a representation of the daily, 7-day average of percentage of cases over tests. First position is 0%. Buried position is 15%.
 
 [Deployed Here](https://cocky-swirles-4e4c68.netlify.app/)
 
